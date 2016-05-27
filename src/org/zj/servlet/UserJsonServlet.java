@@ -22,7 +22,7 @@ public class UserJsonServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //        getServletConfig()
-        Map<Integer, User> users = (Map<Integer, User>) request.getServletContext().getAttribute("users");
+        Map<Integer, User> users = (Map<Integer, User>) request.getSession().getAttribute("users");
         response.getOutputStream().write(users.toString().getBytes());
         response.setContentType("application/json; charset=utf-8");
     }

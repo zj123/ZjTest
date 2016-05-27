@@ -33,8 +33,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getServletContext().setAttribute("users", users);
-        response.sendRedirect("index.jsp");
+        request.getSession().setAttribute("users", users);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     @Override

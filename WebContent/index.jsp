@@ -1,6 +1,7 @@
 <%@ page import="java.util.*" language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="org.zj.entity.*"%>
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ page import="org.zj.entity.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,26 +16,15 @@
 	       	<th>name</th>
 	       	<th>功能</th>
 	    </tr>
-	   
-        <%
-            Map<Integer, User> users = (Map<Integer, User>)request.getServletContext().getAttribute("users");
-            Set<Integer> set = users.keySet();
-            Iterator<Integer> it = set.iterator();
-            while(it.hasNext()){
-                Integer id =  it.next();
-                User user = users.get(id);
-               
-        %>
-   			<tr>
-      			<td align="center"><%=user.getId() %></td>
-				<td align="center"><%=user.getName() %></td>
-				<td align="center">
-					<input type="button" value="删除" onclick="document.location='userHandle?id='+<%=user.getId() %>"/>
-				</td>
-   		 	 </tr>
-		<%
-            }
-        %>
+	    <c:forEach items="${sessionScope.users}" var="e">
+            <tr>    
+                <td align="center">${e.key}</td>
+                <td align="center">${e.value.name}</td>
+                <td align="center">
+                    <input type="button" value="删除" onclick="document.location='userHandle?id=${e.key}'"/>
+                </td>
+            </tr>
+        </c:forEach>
     </table>
     <br>
     <br>

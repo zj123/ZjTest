@@ -21,19 +21,19 @@ public class UserHandleServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Map<Integer, User> users = (Map<Integer, User>) request.getServletContext().getAttribute("users");
+        Map<Integer, User> users = (Map<Integer, User>) request.getSession().getAttribute("users");
         String id = request.getParameter("id");
         users.remove(Integer.parseInt(id));
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Integer id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        Map<Integer, User> users = (Map<Integer, User>) request.getServletContext().getAttribute("users");
+        Map<Integer, User> users = (Map<Integer, User>) request.getSession().getAttribute("users");
         users.put(id, new User(id, name));
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
 }
